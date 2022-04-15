@@ -5,3 +5,14 @@
 #
 #   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
 #   Character.create(name: "Luke", movie: movies.first)
+
+# Wipe db
+Airport.delete_all
+
+# Seed new data
+Airport.create(airport_code: "NYC")
+Airport.create(airport_code: "SFO")
+Airport.create(airport_code: "OTT")
+Airport.create(airport_code: "TOR")
+Airport.create(airport_code: "VAN")
+Airport.create(airport_code: "FL")
