@@ -1,0 +1,9 @@
+<h2>Flight Search!</h2>
+
+<%= form_with url: '/flights', method: 'get', data: { turbo: false } do %>
+  <%= select_tag(:departing_id, options_for_select(@departing_airports)) %>
+  <%= select_tag(:destination_id, options_for_select(@arrival_airports)) %>
+  <%= select_tag(:num_passengers, options_for_select((1..4))) %>
+  <%= select_tag(:start_time, options_for_select(@flight_dates)) %>
+  <%= submit_tag('Search') %>
+<% end %>
