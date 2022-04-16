@@ -1,10 +1,10 @@
 <h2><%= link_to "Flight Booker!", root_url %></h2>
 
 <%= form_with url: '/flights', method: 'get', data: { turbo: false } do %>
-  <%= select_tag(:departing_id, options_for_select(@departures)) %>
-  <%= select_tag(:destination_id, options_for_select(@destinations)) %>
-  <%= select_tag(:num_passengers, options_for_select((1..4))) %>
-  <%= select_tag(:start_time, options_for_select(@flight_dates)) %>
+  <%= select_tag(:departing_id, options_for_select(@departures, params[:departing_id])) %>
+  <%= select_tag(:destination_id, options_for_select(@destinations, params[:destination_id])) %>
+  <%= select_tag(:num_passengers, options_for_select((1..4), params[:num_passengers])) %>
+  <%= select_tag(:start_time, options_for_select(@flight_dates, params[:start_time])) %>
   <%= submit_tag('Search') %>
 <% end %>
 
@@ -12,11 +12,24 @@
   <% if @flight_results.empty? %>
     <p>No Results Found.</p>
   <% else %>
-    <% @flight_results.each do |flight| %>
-      <p>From: <%= flight.departure.airport_code %></p>
-      <p>To: <%= flight.destination.airport_code %></p>
-      <p>Flight time: <%= flight.start_time %></p>
-      <p>Duration: <%= flight.duration %></p>
+    <%= form_with url: '/bookings', method: 'get', data: { turbo: false } do %>
+      <%= hidden_field_tag 'num_passengers', value = params[:num_passengers] %>
+      <% @flight_results.each do |flight| %>
+        <div class="flight-results">
+          <div class="flight-details">
+            <p><%= flight.departure.airport_code %></p>
+            <p><%= flight.destination.airport_code %></p>
+            <p><%= flight.start_time %></p>
+            <p><%= flight.duration %></p>
+          </div>
+          <div class="flight-select">
+            <%= radio_button_tag :flight_id, flight.id %>
+          </div>
+        </div>
+      <% end %>
+      <%= submit_tag('Select flight') %>
     <% end %>
   <% end %>
 <% end %>
+
+
