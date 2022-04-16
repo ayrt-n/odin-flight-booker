@@ -1,4 +1,4 @@
-<h2>Flight Search!</h2>
+<h2><%= link_to "Flight Booker!", root_url %></h2>
 
 <%= form_with url: '/flights', method: 'get', data: { turbo: false } do %>
   <%= select_tag(:departing_id, options_for_select(@departures)) %>
@@ -6,4 +6,17 @@
   <%= select_tag(:num_passengers, options_for_select((1..4))) %>
   <%= select_tag(:start_time, options_for_select(@flight_dates)) %>
   <%= submit_tag('Search') %>
+<% end %>
+
+<% unless @flight_results.nil? %>
+  <% if @flight_results.empty? %>
+    <p>No Results Found.</p>
+  <% else %>
+    <% @flight_results.each do |flight| %>
+      <p>From: <%= flight.departure.airport_code %></p>
+      <p>To: <%= flight.destination.airport_code %></p>
+      <p>Flight time: <%= flight.start_time %></p>
+      <p>Duration: <%= flight.duration %></p>
+    <% end %>
+  <% end %>
 <% end %>
