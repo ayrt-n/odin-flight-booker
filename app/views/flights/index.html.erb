@@ -9,27 +9,30 @@
 <% end %>
 
 <% unless @flight_results.nil? %>
-  <% if @flight_results.empty? %>
-    <p>No Results Found.</p>
-  <% else %>
-    <%= form_with url: '/bookings', method: 'get', data: { turbo: false } do %>
-      <%= hidden_field_tag 'num_passengers', value = params[:num_passengers] %>
-      <% @flight_results.each do |flight| %>
-        <div class="flight-results">
-          <div class="flight-details">
-            <p><%= flight.departure.airport_code %></p>
-            <p><%= flight.destination.airport_code %></p>
-            <p><%= flight.start_time %></p>
-            <p><%= flight.duration %></p>
+    <% if @flight_results.empty? %>
+      <p>No Results Found.</p>
+    <% else %>
+      <%= form_with url: '/bookings', method: 'get', data: { turbo: false }, class: 'search-results' do %>
+        <%= hidden_field_tag 'num_passengers', value = params[:num_passengers] %>
+        <% @flight_results.each do |flight| %>
+          <div class="flight-results">
+          <%= label_tag "flight_id_#{flight.id}" do %>
+              <div class="flight-details">
+                <p><%= flight.departure.airport_code %></p>
+                <%= image_tag('right-arrow-purple.png', class: 'image') %>
+                <p><%= flight.destination.airport_code %></p>
+                <p><%= flight.start_time %></p>
+                <p><%= flight.duration %> hours</p>
+                <p><%= flight.start_time + flight.duration.hours %></p>
+              </div>
+            <% end %>
+            <div class="flight-select">
+              <%= radio_button_tag :flight_id, flight.id %>
+            </div>
           </div>
-          <div class="flight-select">
-            <%= radio_button_tag :flight_id, flight.id %>
-          </div>
-        </div>
+        <% end %>
+        <%= submit_tag('Start flying!', class: 'button action') %>
       <% end %>
-      <%= submit_tag('Select flight') %>
     <% end %>
-  <% end %>
 <% end %>
-
 
