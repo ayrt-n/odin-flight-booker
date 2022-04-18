@@ -1,27 +1,42 @@
-<h3>Flight details</h3>
-<div class="flight-details">
-  <p><%= @flight.departure.airport_code %></p>
-  <%= image_tag('right-arrow-purple.png', class: 'image') %>
-  <p><%= @flight.destination.airport_code %></p>
-  <p><%= @flight.start_time %></p>
-  <p><%= @flight.duration %> hours</p>
-  <p><%= @flight.start_time + @flight.duration.hours %></p>
+<h3>Flight Details</h3>
+<div class="content-card flex-center">
+  <div class="flight-details">
+    <p><%= @booking.flight.departure.airport_code %></p>
+    <%= image_tag('right-arrow-purple.png', class: 'image') %>
+    <p><%= @booking.flight.destination.airport_code %></p>
+    <p><%= @booking.flight.start_time %></p>
+    <p><%= @booking.flight.duration %> hours</p>
+    <p><%= @booking.flight.start_time + @booking.flight.duration.hours %></p>
+  </div>
 </div>
 
-<h3>Passenger details</h3>
-<%= form_with model: @booking do |f| %>
-  <%= f.hidden_field :flight_id %>
-  <%= f.fields_for :passengers do |passenger_form| %>
-    <div class="passenger-form">
-      <div class="field">
-        <%= passenger_form.label :name %>
-        <%= passenger_form.text_field :name %>
-      </div>
-      <div class="field">
-        <%= passenger_form.label :email %>
-        <%= passenger_form.email_field :email %>
-      </div>
-    </div>
-  <% end %>
-  <%= f.submit "Submit", class: "button action" %>
+<h3>Passenger Details</h3>
+<% if @booking.errors.any? %>
+  <div class="error-messages">
+    <p>Unable to submit form due to following error(s):</p>
+    <ul>
+      <% @booking.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+  </div>
+  </ul>
 <% end %>
+  <%= form_with model: @booking, class: "centered-column" do |f| %>
+    <%= f.hidden_field :flight_id %>
+      <% i = 1 %>
+    <%= f.fields_for :passengers do |passenger_form| %>
+        <div class="passenger-form">
+          <h4>Passenger #<%= i %></h4>
+          <div class="field">
+            <%= passenger_form.label :name %><br>
+            <%= passenger_form.text_field :name %>
+          </div>
+          <div class="field">
+            <%= passenger_form.label :email %><br>
+            <%= passenger_form.email_field :email %>
+          </div>
+        </div>
+        <% i += 1 %>
+    <% end %>
+    <%= f.submit "Submit", class: "button action" %>
+  <% end %>
