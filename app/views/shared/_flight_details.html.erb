@@ -1,7 +1,7 @@
 <div class="flight-details">
-  <p><%= flight.departure.airport_code %></p>
+  <p><strong><%= flight.departure.airport_code %></strong></p>
   <%= image_tag('right-arrow-purple.png', class: 'image') %>
-  <p><%= flight.destination.airport_code %></p>
+  <p><strong><%= flight.destination.airport_code %></strong></p>
   <p><%= flight.start_time %></p>
   <p><%= flight.duration %> hours</p>
   <p><%= flight.start_time + flight.duration.hours %></p>
