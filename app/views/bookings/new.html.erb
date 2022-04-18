@@ -1,0 +1,27 @@
+<h3>Flight details</h3>
+<div class="flight-details">
+  <p><%= @flight.departure.airport_code %></p>
+  <%= image_tag('right-arrow-purple.png', class: 'image') %>
+  <p><%= @flight.destination.airport_code %></p>
+  <p><%= @flight.start_time %></p>
+  <p><%= @flight.duration %> hours</p>
+  <p><%= @flight.start_time + @flight.duration.hours %></p>
+</div>
+
+<h3>Passenger details</h3>
+<%= form_with model: @booking do |f| %>
+  <%= f.hidden_field :flight_id %>
+  <%= f.fields_for :passengers do |passenger_form| %>
+    <div class="passenger-form">
+      <div class="field">
+        <%= passenger_form.label :name %>
+        <%= passenger_form.text_field :name %>
+      </div>
+      <div class="field">
+        <%= passenger_form.label :email %>
+        <%= passenger_form.email_field :email %>
+      </div>
+    </div>
+  <% end %>
+  <%= f.submit "Submit", class: "button action" %>
+<% end %>
