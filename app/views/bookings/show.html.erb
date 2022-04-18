@@ -1,17 +1,24 @@
-<h2>Congratulations! Your booking is complete!</h2>
+<h2>✨ Congratulations! Your booking is complete! ✨</h2>
 <h3>Flight details</h3>
-<div class="flight-details">
-  <p><%= @booking.flight.departure.airport_code %></p>
-  <%= image_tag('right-arrow-purple.png', class: 'image') %>
-  <p><%= @booking.flight.destination.airport_code %></p>
-  <p><%= @booking.flight.start_time %></p>
-  <p><%= @booking.flight.duration %> hours</p>
-  <p><%= @booking.flight.start_time + @booking.flight.duration.hours %></p>
+<div class="content-card flex-center">
+  <div class="flight-details">
+    <p><%= @booking.flight.departure.airport_code %></p>
+    <%= image_tag('right-arrow-purple.png', class: 'image') %>
+    <p><%= @booking.flight.destination.airport_code %></p>
+    <p><%= @booking.flight.start_time %></p>
+    <p><%= @booking.flight.duration %> hours</p>
+    <p><%= @booking.flight.start_time + @booking.flight.duration.hours %></p>
+  </div>
 </div>
 <h3>Passenger details</h3>
-<% @booking.passengers.each do |passenger| %>
-  <div class="passenger-details">
-    <p><%= passenger.name %></p>
-    <p><%= passenger.email %></p>
-  </div>
-<% end %>
+<div class="centered-column">
+  <% i = 1 %>
+  <% @booking.passengers.each do |passenger| %>
+    <div class="passenger-details">
+      <h4>Passenger <%= i %></h4>
+      <p><%= passenger.name %></p>
+      <p><%= passenger.email %></p>
+    </div>
+    <% i += 1 %>
+  <% end %>
+</div>
