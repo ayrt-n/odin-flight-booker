@@ -1,13 +1,6 @@
 <h3>Flight Details</h3>
 <div class="content-card flex-center">
-  <div class="flight-details">
-    <p><%= @booking.flight.departure.airport_code %></p>
-    <%= image_tag('right-arrow-purple.png', class: 'image') %>
-    <p><%= @booking.flight.destination.airport_code %></p>
-    <p><%= @booking.flight.start_time %></p>
-    <p><%= @booking.flight.duration %> hours</p>
-    <p><%= @booking.flight.start_time + @booking.flight.duration.hours %></p>
-  </div>
+  <%= render 'shared/flight_details', :flight => @booking.flight %>
 </div>
 
 <h3>Passenger Details</h3>

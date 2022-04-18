@@ -1,14 +1,7 @@
 <h2>✨ Congratulations! Your booking is complete! ✨</h2>
 <h3>Flight details</h3>
 <div class="content-card flex-center">
-  <div class="flight-details">
-    <p><%= @booking.flight.departure.airport_code %></p>
-    <%= image_tag('right-arrow-purple.png', class: 'image') %>
-    <p><%= @booking.flight.destination.airport_code %></p>
-    <p><%= @booking.flight.start_time %></p>
-    <p><%= @booking.flight.duration %> hours</p>
-    <p><%= @booking.flight.start_time + @booking.flight.duration.hours %></p>
-  </div>
+  <%= render 'shared/flight_details', :flight => @booking.flight %>
 </div>
 <h3>Passenger details</h3>
 <div class="centered-column">
