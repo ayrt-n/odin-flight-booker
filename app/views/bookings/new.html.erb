@@ -5,7 +5,7 @@
 
 <h3>Passenger Details</h3>
 <% if @booking.errors.any? %>
-  <div class="error-messages">
+  <div class="centered-column">
     <p>Unable to submit form due to following error(s):</p>
     <ul>
       <% @booking.errors.full_messages.each do |msg| %>
